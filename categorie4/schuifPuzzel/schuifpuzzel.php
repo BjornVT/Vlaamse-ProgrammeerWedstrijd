@@ -26,21 +26,58 @@
 			}
 		}
 
+		//print_r($puzzel);
+
 		$minMove = MAXDIEPTE;
-		doMove(0, $puzzel);
+		doMove(0, $puzzel, $leegr, $leegk, -1);
 		echo $minMove;
 	}
 
-	function doMove($diepte, $toestand)
+	// 0 down
+	// 1 up
+	// 2 links
+	// 3 rechts
+	function doMove($diepte, $toestand, $leegr, $leegk, $richting)
 	{
 		if($diepte<MAXDIEPTE){
 			//Max diepte nog niet bereikt
+			//print_r($toestand);
+			printf("diepte: %d\n", $diepte);
 			if(cmpArray($toestand, $GLOBALS['opl'], $GLOBALS['r'], $GLOBALS['k']) == 0)
 			{
+				echo "gevonden\n";
 				$GLOBALS['minMove'] = $GLOBALS['minMove'] > $diepte ? $diepte : $GLOBALS['minMove'];
 				return;
 			}
-
+			
+			if(($leegr > 0) && ($richting != 0)){
+				//We kunnen naar boven schuiven
+				$temp = $toestand;
+				$temp[$leegr][$leegk] = $toestand[$leegr-1][$leegk];
+				$temp[$leegr-1][$leegk] = ' ';
+				doMove($diepte+1, $temp, $leegr-1, $leegk, 1);
+			}
+			if(($leegr < ($GLOBALS['r']-1)) && ($richting != 1)){
+				//Naar beneden schuiven die handel
+				$temp = $toestand;
+				$temp[$leegr][$leegk] = $toestand[$leegr+1][$leegk];
+				$temp[$leegr+1][$leegk] = ' ';
+				doMove($diepte+1, $temp, $leegr+1, $leegk, 0);
+			}
+			if(($leegk > 0) && ($richting != 3)){
+				//Naar links schuiven
+				$temp = $toestand;
+				$temp[$leegr][$leegk] = $toestand[$leegr][$leegk-1];
+				$temp[$leegr][$leegk-1] = ' ';
+				doMove($diepte+1, $temp, $leegr, $leegk-1, 2);
+			}
+			if(($leegk < ($GLOBALS['k']-1)) && ($richting != 2)){
+				//Naar rechts schuiven
+				$temp = $toestand;
+				$temp[$leegr][$leegk] = $toestand[$leegr][$leegk+1];
+				$temp[$leegr][$leegk+1] = ' ';
+				doMove($diepte+1, $temp, $leegr, $leegk+1, 3);
+			}
 		}
 	}
 
