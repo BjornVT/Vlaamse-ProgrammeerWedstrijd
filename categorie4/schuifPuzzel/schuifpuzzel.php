@@ -25,18 +25,25 @@
 				$opl[$j][$l] = $s[$j*$k+$l];
 			}
 		}
+
+		$minMove = MAXDIEPTE;
+		doMove(0, $puzzel);
+		echo $minMove;
 	}
-/*
-	$nMoves = 0;
-	function doMove($diepte, 
+
+	function doMove($diepte, $toestand)
 	{
 		if($diepte<MAXDIEPTE){
 			//Max diepte nog niet bereikt
-			if(
+			if(cmpArray($toestand, $GLOBALS['opl'], $GLOBALS['r'], $GLOBALS['k']) == 0)
+			{
+				$GLOBALS['minMove'] = $GLOBALS['minMove'] > $diepte ? $diepte : $GLOBALS['minMove'];
+				return;
+			}
+
 		}
-		return -1;
 	}
- */
+
 	function cmpArray($a1, $a2, $r, $k)
 	{
 		for($i=0; $i<$r; $i++){
