@@ -10,19 +10,16 @@
 		}
 
 		$max = 0;
-		$tot = 0;
 		//Bij elk stuk eens beginnen
-		//for($j=0; $j<$ndelen; $j++){
-		$j = 0;
+		for($j=0; $j<$ndelen; $j++){
 			$temp = $delen;
 			$tot = $temp[$j];
 			$temp[$j] = 0;
 			eat($temp, $ndelen, $j, $tot);
-			$max = $max < $tot ? $tot : $max;
-		//}
+		}
 
 
-		printf("%d\n", $max);
+		printf("max: %d\n", $max);
 
 	}
 
@@ -36,7 +33,7 @@
 		$ret = getPiece($temp, $n, $plaats, -1);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
-			$GLOBALS['tot'] = $tempTot > $GLOBALS['tot'] ? $tempTot : $GLOBALS['tot'];
+			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
 			eat($temp, $n, $plaats, $tempTot);
 		}
 		else{
@@ -51,7 +48,7 @@
 		$ret = getPiece($temp, $n, $plaats, 1);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
-			$GLOBALS['tot'] = $tempTot > $GLOBALS['tot'] ? $tempTot : $GLOBALS['tot'];
+			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
 			eat($temp, $n, $plaats, $tempTot);
 		}
 		else{
@@ -66,7 +63,7 @@
 		$ret = getPiece($temp, $n, $plaats, -1);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
-			$GLOBALS['tot'] = $tempTot > $GLOBALS['tot'] ? $tempTot : $GLOBALS['tot'];
+			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
 			eat($temp, $n, $plaats, $tempTot);
 		}
 		else{
@@ -81,7 +78,7 @@
 		$ret = getPiece($temp, $n, $plaats, 1);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
-			$GLOBALS['tot'] = $tempTot > $GLOBALS['tot'] ? $tempTot : $GLOBALS['tot'];
+			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
 			eat($temp, $n, $plaats, $tempTot);
 		}
 		else{
@@ -99,16 +96,16 @@
 			return -1;
 		}
 
-		for($i=$plaats; $i<$n && $i>=0; $i+=$richt){
+		for($i=$plaats; ; $i += $richt){
 			if($toestand[$i] != 0){
 				$temp = $toestand[$i];
 				$toestand[$i] = 0;
 				return $temp;
 			}
-			if($i == 0){
-				$i = $n - 1;
+			if($i <= 0){
+				$i = $n;
 			}
-			else if($i == $n - 1){
+			else if($i >= $n){
 				$i = 0;
 			}
 		}
