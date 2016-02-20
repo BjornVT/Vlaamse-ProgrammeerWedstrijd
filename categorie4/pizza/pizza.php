@@ -14,10 +14,15 @@
 
 
 
-
-
-
-
-
+	function getPiece($toestand, $n, $plaats, $richt)
+	{
+		for($i=0; $i<$n && $i>=0; $i+=$richt){
+			if($toestand[$i] != 0){
+				$temp = $toestand[$i];
+				$toestand = 0;
+				return $temp;
+			}
+		}
+		return -1;
 	}
 ?>
