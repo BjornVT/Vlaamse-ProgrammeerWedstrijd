@@ -28,9 +28,12 @@
 		//Mogelijkheid 1
 		$temp = $toestand;
 		//Bob neemt links
-		getPiece($temp, $n, $plaats, -1);
+		$ret = getMaxSizePiece($temp, $n, $plaats, -1);
+		if($ret == -1){
+			return;
+		}
 		//Alice neemt links
-		$ret = getPiece($temp, $n, $plaats, -1);
+		$ret = getMaxSizePiece($temp, $n, $plaats, -1);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
 			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
@@ -43,9 +46,12 @@
 		//Mogelijkheid 2
 		$temp = $toestand;
 		//Bob neemt links
-		getPiece($temp, $n, $plaats, -1);
+		$ret = getMaxSizePiece($temp, $n, $plaats, -1);
+		if($ret == -1){
+			return;
+		}
 		//Alice neemt rechts
-		$ret = getPiece($temp, $n, $plaats, 1);
+		$ret = getMaxSizePiece($temp, $n, $plaats, 1);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
 			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
@@ -58,9 +64,12 @@
 		//Mogelijkheid 3
 		$temp = $toestand;
 		//Bob neemt rechts 
-		getPiece($temp, $n, $plaats, 1);
+		$ret = getMaxSizePiece($temp, $n, $plaats, 1);
+		if($ret == -1){
+			return;
+		}
 		//Alice neemt links
-		$ret = getPiece($temp, $n, $plaats, -1);
+		$ret = getMaxSizePiece($temp, $n, $plaats, -1);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
 			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
@@ -73,9 +82,12 @@
 		//Mogelijkheid 4 
 		$temp = $toestand;
 		//Bob neemt rechts 
-		getPiece($temp, $n, $plaats, 1);
+		$ret = getMaxSizePiece($temp, $n, $plaats, 1);
+		if($ret == -1){
+			return;
+		}
 		//Alice neemt rechts
-		$ret = getPiece($temp, $n, $plaats, 1);
+		$ret = getMaxSizePiece($temp, $n, $plaats, 1);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
 			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
@@ -111,5 +123,55 @@
 				$i = 0;
 			}
 		}
+	}
+
+	function getMaxSizePiece(&$toestand, $n, $plaats)
+	{
+		$tot = 0;
+		for($i=0; $i<$n; $i++) {
+			$tot += $toestand[$i];
+		}
+		if($tot == 0){
+			return -1;
+		}
+
+		//Het stuk link zoeken
+		$i=$plaats;
+		while(true){
+			if($toestand[$i] != 0){
+				$p1 = $i;
+				break;
+			}
+			$i--;
+			if($i < 0){
+				$i = $n-1;
+			}
+		}
+
+		//Het stuk rechts zoeken
+		$i=$plaats;
+		while(true){
+			if($toestand[$i] != 0){
+				$p2 = $i;
+				break;
+			}
+			$i++;
+			if($i >= $n){
+				$i = 0;
+			}
+		}
+
+		//Grootste stuk zoeken
+		if($toestand[$p1] > $toestand[$p2]){
+			$temp = $toestand[$p1];
+			$toestand[$p1] = 0;
+			return $temp;
+		}
+		else{
+			$temp = $toestand[$p2];
+			$toestand[$p2] = 0;
+			return $temp;
+		}
+
 	}
 ?>
