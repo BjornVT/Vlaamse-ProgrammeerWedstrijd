@@ -28,12 +28,12 @@
 		//Mogelijkheid 1
 		$temp = $toestand;
 		//Bob neemt links
-		$ret = getMaxSizePiece($temp, $n, $plaats, -1);
+		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret == -1){
 			return;
 		}
 		//Alice neemt links
-		$ret = getMaxSizePiece($temp, $n, $plaats, -1);
+		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
 			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
@@ -46,12 +46,12 @@
 		//Mogelijkheid 2
 		$temp = $toestand;
 		//Bob neemt links
-		$ret = getMaxSizePiece($temp, $n, $plaats, -1);
+		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret == -1){
 			return;
 		}
 		//Alice neemt rechts
-		$ret = getMaxSizePiece($temp, $n, $plaats, 1);
+		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
 			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
@@ -64,12 +64,12 @@
 		//Mogelijkheid 3
 		$temp = $toestand;
 		//Bob neemt rechts 
-		$ret = getMaxSizePiece($temp, $n, $plaats, 1);
+		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret == -1){
 			return;
 		}
 		//Alice neemt links
-		$ret = getMaxSizePiece($temp, $n, $plaats, -1);
+		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
 			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
@@ -82,12 +82,12 @@
 		//Mogelijkheid 4 
 		$temp = $toestand;
 		//Bob neemt rechts 
-		$ret = getMaxSizePiece($temp, $n, $plaats, 1);
+		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret == -1){
 			return;
 		}
 		//Alice neemt rechts
-		$ret = getMaxSizePiece($temp, $n, $plaats, 1);
+		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
 			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
@@ -100,6 +100,11 @@
 
 	function getPiece(&$toestand, $n, $plaats, $richt)
 	{
+		/**
+		 * Functie om het eerste stuk in een bepaalde richting te verkrijgen.
+		 * Wordt in deze opgave niet meer gebruikt
+		 */
+
 		$tot = 0;
 		for($i=0; $i<$n; $i++) {
 			$tot += $toestand[$i];
@@ -127,6 +132,10 @@
 
 	function getMaxSizePiece(&$toestand, $n, $plaats)
 	{
+		/**
+		 * Functie voor het grootste stuk te verkrijgen 
+		 */
+
 		$tot = 0;
 		for($i=0; $i<$n; $i++) {
 			$tot += $toestand[$i];
