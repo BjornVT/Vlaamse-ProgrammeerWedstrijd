@@ -96,14 +96,16 @@
 			return -1;
 		}
 
-		for($i=$plaats; ; $i += $richt){
+		$i=$plaats;
+		while(true){
 			if($toestand[$i] != 0){
 				$temp = $toestand[$i];
 				$toestand[$i] = 0;
 				return $temp;
 			}
-			if($i <= 0){
-				$i = $n;
+			$i += $richt;
+			if($i < 0){
+				$i = $n-1;
 			}
 			else if($i >= $n){
 				$i = 0;
