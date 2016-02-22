@@ -27,66 +27,12 @@
 	{
 		//Mogelijkheid 1
 		$temp = $toestand;
-		//Bob neemt links
+		//Bob neemt een stuk
 		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret == -1){
 			return;
 		}
-		//Alice neemt links
-		$ret = getMaxSizePiece($temp, $n, $plaats);
-		if($ret != -1){
-			$tempTot = $tot + $ret;
-			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
-			eat($temp, $n, $plaats, $tempTot);
-		}
-		else{
-			return;
-		}
-
-		//Mogelijkheid 2
-		$temp = $toestand;
-		//Bob neemt links
-		$ret = getMaxSizePiece($temp, $n, $plaats);
-		if($ret == -1){
-			return;
-		}
-		//Alice neemt rechts
-		$ret = getMaxSizePiece($temp, $n, $plaats);
-		if($ret != -1){
-			$tempTot = $tot + $ret;
-			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
-			eat($temp, $n, $plaats, $tempTot);
-		}
-		else{
-			return;
-		}
-
-		//Mogelijkheid 3
-		$temp = $toestand;
-		//Bob neemt rechts 
-		$ret = getMaxSizePiece($temp, $n, $plaats);
-		if($ret == -1){
-			return;
-		}
-		//Alice neemt links
-		$ret = getMaxSizePiece($temp, $n, $plaats);
-		if($ret != -1){
-			$tempTot = $tot + $ret;
-			$GLOBALS['max'] = $tempTot > $GLOBALS['max'] ? $tempTot : $GLOBALS['max'];
-			eat($temp, $n, $plaats, $tempTot);
-		}
-		else{
-			return;
-		}
-
-		//Mogelijkheid 4 
-		$temp = $toestand;
-		//Bob neemt rechts 
-		$ret = getMaxSizePiece($temp, $n, $plaats);
-		if($ret == -1){
-			return;
-		}
-		//Alice neemt rechts
+		//Alice neemt een stuk
 		$ret = getMaxSizePiece($temp, $n, $plaats);
 		if($ret != -1){
 			$tempTot = $tot + $ret;
